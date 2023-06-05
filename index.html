@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/reset.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/index.css">
+    <title>Movie List</title>
+</head>
+<body>
+   
+    <header class="header">
+        <div class="header__wrapper">
+            <div class="header__inner">
+                <div class="labels">
+                    <label class="label lebel-text">List of movies</label>
+                    <label class="label">2023</label>
+                </div>
+                <p class="header__title">What to see?</p>
+            </div>
+        </div>
+    </header>
+
+
+
+    <main class="main">
+        <div class="tasks__wrapper">
+            <div class="tasks__container">
+                <form class="tasks__form">
+                    <input  class="task__input" type="text" placeholder="Add movie">
+                    <button class="add__task-btn" type="submit" data-action="add">
+                        <img class="add__task-img" src="images/addtask.png" alt="Button for add movies" >
+                    </button>
+                </form>
+    
+                <div class="boxes">
+                    <div class="box__container">
+                        <div class="first-col">
+                            <label class="box__lable">
+                                <input class="box__input" type="radio">
+                                <span data-action="done"></span>
+                            </label>
+                            <p class="task__name">Titanic</p>
+                        </div>
+                        <div class="second-col">
+                            <button class="delete__button" data-action="delete">
+                                <img class="delet__btn-img" src="images/delete-btn.png" alt="Delete button image">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
