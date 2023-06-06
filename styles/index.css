@@ -79,6 +79,10 @@ body {
   background-color: #6532F8;
   cursor: pointer;
 }
+.add__task-btn:hover {
+  border: 1px solid purple;
+  background-color: purple;
+}
 .task__name {
   padding: 10px 20px;
   word-break: break-all;
