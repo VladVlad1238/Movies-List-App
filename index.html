@@ -32,25 +32,24 @@
     <main class="main">
         <div class="tasks__wrapper">
             <div class="tasks__container">
-                <form class="tasks__form">
-                    <input  class="task__input" type="text" placeholder="Add movie">
-                    <button class="add__task-btn" type="submit" data-action="add">
+                <form class="js-tasks-form tasks__form">
+                    <input  class="js-tasks-input tasks__input" type="text" placeholder="Add movie">
+                    <button class="js-add-tasks-btn add__task-btn" type="submit" disabled="disabled">
                         <img class="add__task-img" src="images/addtask.png" alt="Button for add movies" >
                     </button>
                 </form>
     
-                <div class="boxes">
+                <div class="js-tasks-list tasks__list">
                     <div class="box__container">
                         <div class="first-col">
                             <label class="box__lable">
-                                <input class="box__input" type="radio">
-                                <span data-action="done"></span>
+                                <input class="box__input" type="checkbox" data-action="done">
                             </label>
                             <p class="task__name">Titanic</p>
                         </div>
                         <div class="second-col">
-                            <button class="delete__button" data-action="delete">
-                                <img class="delet__btn-img" src="images/delete-btn.png" alt="Delete button image">
+                            <button class="js-delete-list-btn delete__button" data-action="delete">
+                                <img class="delete__btn-img" src="images/delete-btn.png" alt="Delete button image">
                             </button>
                         </div>
                     </div>
@@ -58,5 +57,7 @@
             </div>
         </section>
     </main>
+
+    <script src="/scripts/index.js"></script>
 </body>
 </html>
