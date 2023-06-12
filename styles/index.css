@@ -139,10 +139,33 @@ body {
   border: none;
   cursor: pointer;
 }
-.delete__button img {
+.delete__button img,
+.checked__button img {
   pointer-events: none;
 }
 .box__container-done {
   opacity: 0.5;
   text-decoration: line-through;
+  color: white;
+}
+.box__container-done .checked__button-img {
+  background-color: darkorchid;
+}
+
+
+
+.checked__button {
+  margin-left: 20px;
+
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.checked__button-img {
+  border-radius: 50%;
+  border: none;
+  background-color: red;
+}
+.checked__button-img:hover {
+  background-color: yellow;
 }
