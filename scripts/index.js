@@ -9,10 +9,11 @@ const addTasksButtonNode = document.querySelector('.js-add-tasks-btn');
 
 let tasks = [];
 
+
 const renderTask = (task) => {
-  const cssClass = task.done ? 'box__container box__container-done' : 'box__container';
-  
+
   const setTaskHTML = () => {
+    const cssClass = task.done ? 'box__container box__container-done' : 'box__container';
     const setHTML = `<div id="${task.id}" class="${cssClass}">
     <div class="first-col">
        <button class="checked__button" data-action="done">
@@ -27,6 +28,7 @@ const renderTask = (task) => {
     </div>`
     return setHTML;
   };
+
   
 const getTasksList = () => {
   const getTasks = setTaskHTML();
@@ -34,6 +36,11 @@ const getTasksList = () => {
   };
   getTasksList();
   setTaskHTML();
+};
+
+
+const saveLocalStorage = () => {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 };
 
 if(localStorage.getItem('tasks')) {
@@ -44,44 +51,28 @@ tasks.forEach((task) => {
   renderTask(task);
 });
 
+
 const addTasks = (event) => {
 
   event.preventDefault();
 
   getTaskText();
 
-const newTask = {
-  id: Date.now(),
-  text: getTaskText(),
-  done: false,
+  const newTask = {
+    id: Date.now(),
+    text: getTaskText(),
+    done: false,
+  };
+
+  tasks.push(newTask)
+
+  saveLocalStorage();
+
+  renderTask(newTask);
+    
+  inputManipulation();
 };
 
-tasks.push(newTask)
-
-saveLocalStorage();
-
-const cssClass = newTask.done ? 'box__container box__container-done' : 'box__container';
-  
-const setTaskHTML = () => {
-  const setHTML = `<div id="${newTask.id}" class="${cssClass}">
-  <div class="first-col">
-      <button class="checked__button" data-action="done">
-          <img class="checked__button-img" src="images/unchecked.png" alt="checked button">
-      </button>
-      <p class="task__name">${newTask.text}</p>
-  </div>
-  <div class="second-col">
-      <button class="delete__button" data-action="delete">
-          <img class="delete__btn-img" src="images/delete-btn.png" alt="Delete button image">
-      </button>
-  </div>`
-  return setHTML;
-};
-  
-const getTasksList = () => {
-  const getTasks = setTaskHTML();
-  tasksListNode.insertAdjacentHTML('beforeend', getTasks);
-};
 
 const inputManipulation = () => {
   const clearInput = () => {
@@ -95,9 +86,6 @@ const inputManipulation = () => {
   focusInput();
 };
 
-getTasksList();
-inputManipulation();
-};
 
 
 const getTaskText = () => {
@@ -105,12 +93,12 @@ const getTaskText = () => {
   return taskText;
 };
 
+
 const doneTask = (event) => {
   if(event.target.dataset.action !== 'done') return;
     
   const parentNode = event.target.closest('.box__container');
  
-
   const id = Number(parentNode.id);
 
   const task = tasks.find((task) => {
@@ -121,10 +109,11 @@ const doneTask = (event) => {
 
   task.done = !task.done;
 
-  
   parentNode.classList.toggle('box__container-done');
+
   saveLocalStorage();
 };
+
 
 const deleteTask = (event) => {
   if(event.target.dataset.action !== 'delete') return;
@@ -139,12 +128,13 @@ const deleteTask = (event) => {
     };
   });
 
-    tasks.splice(index, 1);
+  tasks.splice(index, 1);
 
-    saveLocalStorage();
+  saveLocalStorage();
 
-    parentNode.remove();
+  parentNode.remove();
 };
+
 
 const disabledButton = () => {
   if(taskInputNode.value.length > ZERO) {
@@ -158,9 +148,6 @@ const disabledButton = () => {
   };
 };
 
-const saveLocalStorage = () => {
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-};
 
 taskFormNode.addEventListener('submit', addTasks);
 taskFormNode.addEventListener('input', disabledButton);
