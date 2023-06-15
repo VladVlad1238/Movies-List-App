@@ -1,25 +1,25 @@
-const ZERO = 0;
+
 const TITLE_INPUT_LIMIT = 100;
 
-const taskFormNode = document.querySelector('.js-tasks-form');
-const taskInputNode = document.querySelector('.js-tasks-input');
-const tasksListNode = document.querySelector('.js-tasks-list');
-const addTasksButtonNode = document.querySelector('.js-add-tasks-btn');
+const movieFormNode = document.querySelector('.js-movie-form');
+const movieInputNode = document.querySelector('.js-movie-input');
+const movieListNode = document.querySelector('.js-movie-list');
+const addMovieButtonNode = document.querySelector('.js-add-movie-btn');
 
 
-let tasks = [];
+let movies = [];
 
 
-const renderTask = (task) => {
+const renderMovie = (movie) => {
 
-  const setTaskHTML = () => {
-    const cssClass = task.done ? 'box__container box__container-done' : 'box__container';
-    const setHTML = `<div id="${task.id}" class="${cssClass}">
+  const setMovieHTML = () => {
+    const cssClass = movie.done ? 'box__container box__container-done' : 'box__container';
+    const setHTML = `<div id="${movie.id}" class="${cssClass}">
     <div class="first-col">
        <button class="checked__button" data-action="done">
           <img class="checked__button-img" src="images/unchecked.png" alt="checked button">
        </button>
-        <p class="task__name">${task.text}</p>
+        <p class="movies__name">${movie.text}</p>
     </div>
     <div class="second-col">
         <button class="delete__button" data-action="delete">
@@ -30,45 +30,45 @@ const renderTask = (task) => {
   };
 
   
-const getTasksList = () => {
-  const getTasks = setTaskHTML();
-  tasksListNode.insertAdjacentHTML('beforeend', getTasks);
+const getMovieList = () => {
+  const getTasks = setMovieHTML();
+  movieListNode.insertAdjacentHTML('afterbegin', getTasks);
   };
-  getTasksList();
-  setTaskHTML();
+  getMovieList();
+  setMovieHTML();
 };
 
 
 const saveLocalStorage = () => {
-  localStorage.setItem('tasks', JSON.stringify(tasks));
+  localStorage.setItem('movies', JSON.stringify(movies));
 };
 
-if(localStorage.getItem('tasks')) {
-  tasks = JSON.parse(localStorage.getItem('tasks'));
+if(localStorage.getItem('movies')) {
+  movies = JSON.parse(localStorage.getItem('movies'));
 };
 
-tasks.forEach((task) => {
-  renderTask(task);
+movies.forEach((movie) => {
+  renderMovie(movie);
 });
 
 
-const addTasks = (event) => {
+const addMovies = (event) => {
 
   event.preventDefault();
 
-  getTaskText();
+  getMovieText();
 
-  const newTask = {
+  const newMovie = {
     id: Date.now(),
-    text: getTaskText(),
+    text: getMovieText(),
     done: false,
   };
 
-  tasks.push(newTask)
+  movies.push(newMovie)
 
   saveLocalStorage();
 
-  renderTask(newTask);
+  renderMovie(newMovie);
     
   inputManipulation();
 };
@@ -76,11 +76,11 @@ const addTasks = (event) => {
 
 const inputManipulation = () => {
   const clearInput = () => {
-    taskInputNode.value = "";
+    movieInputNode.value = "";
     disabledButton();
   };
   const focusInput = () => {
-    taskInputNode.focus();
+    movieInputNode.focus();
   };
   clearInput();
   focusInput();
@@ -88,26 +88,26 @@ const inputManipulation = () => {
 
 
 
-const getTaskText = () => {
-  const taskText = taskInputNode.value;
-  return taskText;
+const getMovieText = () => {
+  const movieText = movieInputNode.value.trim();
+  return movieText;
 };
 
 
-const doneTask = (event) => {
+const doneMovie = (event) => {
   if(event.target.dataset.action !== 'done') return;
     
   const parentNode = event.target.closest('.box__container');
  
   const id = Number(parentNode.id);
 
-  const task = tasks.find((task) => {
-    if(task.id === id) {
+  const movie = movies.find((movie) => {
+    if(movie.id === id) {
       return true;
     };
   });
 
-  task.done = !task.done;
+  movie.done = !movie.done;
 
   parentNode.classList.toggle('box__container-done');
 
@@ -115,20 +115,20 @@ const doneTask = (event) => {
 };
 
 
-const deleteTask = (event) => {
+const deleteMovie = (event) => {
   if(event.target.dataset.action !== 'delete') return;
 
   const parentNode = event.target.closest('.box__container');
 
   const id = Number(parentNode.id);
 
-  const index = tasks.findIndex((task) => {
-    if(task.id === id) {
+  const index = movies.findIndex((movie) => {
+    if(movie.id === id) {
       return true;
     };
   });
 
-  tasks.splice(index, 1);
+  movies.splice(index, 1);
 
   saveLocalStorage();
 
@@ -137,20 +137,24 @@ const deleteTask = (event) => {
 
 
 const disabledButton = () => {
-  if(taskInputNode.value.length > ZERO) {
-    addTasksButtonNode.removeAttribute('disabled');
+  if(movieInputNode.value.length) {
+    addMovieButtonNode.removeAttribute('disabled');
   } else {
-    addTasksButtonNode.setAttribute('disabled', 'disabled');
+    addMovieButtonNode.setAttribute('disabled', 'disabled');
   };
 
-  if(taskInputNode.value.length > TITLE_INPUT_LIMIT) {
-    addTasksButtonNode.setAttribute('disabled', 'disabled');
+  if(movieInputNode.value.length > TITLE_INPUT_LIMIT) {
+    addMovieButtonNode.setAttribute('disabled', 'disabled');
   };
 };
 
 
-taskFormNode.addEventListener('submit', addTasks);
-taskFormNode.addEventListener('input', disabledButton);
-tasksListNode.addEventListener('click', doneTask);
-tasksListNode.addEventListener('click', deleteTask);
+movieFormNode.addEventListener('submit', addMovies);
+movieFormNode.addEventListener('input', disabledButton);
+movieListNode.addEventListener('click', doneMovie);
+movieListNode.addEventListener('click', deleteMovie);
 
+
+
+
+//убрать пробелы  разобрать код по полкам, посмотреть ревью Игоря 
