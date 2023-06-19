@@ -1,6 +1,3 @@
-
-const TITLE_INPUT_LIMIT = 100;
-
 const movieFormNode = document.querySelector('.js-movie-form');
 const movieInputNode = document.querySelector('.js-movie-input');
 const movieListNode = document.querySelector('.js-movie-list');
@@ -31,8 +28,8 @@ const renderMovie = (movie) => {
 
   
 const getMovieList = () => {
-  const getTasks = setMovieHTML();
-  movieListNode.insertAdjacentHTML('afterbegin', getTasks);
+  const getMovies = setMovieHTML();
+  movieListNode.insertAdjacentHTML('afterbegin', getMovies);
   };
   getMovieList();
   setMovieHTML();
@@ -75,21 +72,15 @@ const addMovies = (event) => {
 
 
 const inputManipulation = () => {
-  const clearInput = () => {
     movieInputNode.value = "";
-    disabledButton();
-  };
-  const focusInput = () => {
     movieInputNode.focus();
-  };
-  clearInput();
-  focusInput();
+    isDisabledButton();
 };
 
 
 
 const getMovieText = () => {
-  const movieText = movieInputNode.value.trim();
+  const movieText = movieInputNode.value;
   return movieText;
 };
 
@@ -101,11 +92,7 @@ const doneMovie = (event) => {
  
   const id = Number(parentNode.id);
 
-  const movie = movies.find((movie) => {
-    if(movie.id === id) {
-      return true;
-    };
-  });
+  const movie = movies.find((movie) => {movie.id === id});
 
   movie.done = !movie.done;
 
@@ -122,11 +109,7 @@ const deleteMovie = (event) => {
 
   const id = Number(parentNode.id);
 
-  const index = movies.findIndex((movie) => {
-    if(movie.id === id) {
-      return true;
-    };
-  });
+  const index = movies.findIndex((movie) => {movie.id === id});
 
   movies.splice(index, 1);
 
@@ -136,21 +119,13 @@ const deleteMovie = (event) => {
 };
 
 
-const disabledButton = () => {
-  if(movieInputNode.value.length) {
-    addMovieButtonNode.removeAttribute('disabled');
-  } else {
-    addMovieButtonNode.setAttribute('disabled', 'disabled');
-  };
-
-  if(movieInputNode.value.length > TITLE_INPUT_LIMIT) {
-    addMovieButtonNode.setAttribute('disabled', 'disabled');
-  };
+const isDisabledButton = () => {
+  addMovieButtonNode.disabled = !movieInputNode.value.length
 };
 
 
 movieFormNode.addEventListener('submit', addMovies);
-movieFormNode.addEventListener('input', disabledButton);
+movieFormNode.addEventListener('input', isDisabledButton);
 movieListNode.addEventListener('click', doneMovie);
 movieListNode.addEventListener('click', deleteMovie);
 
