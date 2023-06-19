@@ -92,8 +92,11 @@ const doneMovie = (event) => {
  
   const id = Number(parentNode.id);
 
-  const movie = movies.find((movie) => {movie.id === id});
-
+  const movie = movies.find((movie) => {
+    if(movie.id === id) {
+      return true;
+    }
+  });
   movie.done = !movie.done;
 
   parentNode.classList.toggle('box__container-done');
@@ -109,7 +112,12 @@ const deleteMovie = (event) => {
 
   const id = Number(parentNode.id);
 
-  const index = movies.findIndex((movie) => {movie.id === id});
+  const index = movies.findIndex((movie) => {
+    if (movie.id === id) {
+      return true;
+    } 
+  
+  });
 
   movies.splice(index, 1);
 
