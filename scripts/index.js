@@ -9,7 +9,7 @@ let movies = [];
 
 const renderMovie = (movie) => {
 
-  const setMovieHTML = () => {
+  function setMovieHTML() {
     const cssClass = movie.done ? 'box__container box__container-done' : 'box__container';
     const setHTML = `<div id="${movie.id}" class="${cssClass}">
     <div class="first-col">
@@ -48,16 +48,19 @@ movies.forEach((movie) => {
   renderMovie(movie);
 });
 
+const addMovies = (e) => {
 
-const addMovies = (event) => {
+  e.preventDefault();
 
-  event.preventDefault();
-
-  getMovieText();
+  const movieText = movieInputNode.value.trim();
+  if(!movieText) {
+    alert('Please, write the movies name')
+    return;
+  };
 
   const newMovie = {
     id: Date.now(),
-    text: getMovieText(),
+    text: movieText,
     done: false,
   };
 
@@ -77,18 +80,12 @@ const inputManipulation = () => {
     isDisabledButton();
 };
 
-
-
-const getMovieText = () => {
-  const movieText = movieInputNode.value;
-  return movieText;
-};
-
-
-const doneMovie = (event) => {
-  if(event.target.dataset.action !== 'done') return;
+const doneMovie = (e) => {
+  if(e.target.dataset.action !== 'done'){
+    return;
+  };
     
-  const parentNode = event.target.closest('.box__container');
+  const parentNode = e.target.closest('.box__container');
  
   const id = Number(parentNode.id);
 
@@ -105,19 +102,16 @@ const doneMovie = (event) => {
 };
 
 
-const deleteMovie = (event) => {
-  if(event.target.dataset.action !== 'delete') return;
+const deleteMovie = (e) => {
+  if(e.target.dataset.action !== 'delete'){
+    return;
+  };
 
-  const parentNode = event.target.closest('.box__container');
+  const parentNode = e.target.closest('.box__container');
 
   const id = Number(parentNode.id);
 
-  const index = movies.findIndex((movie) => {
-    if (movie.id === id) {
-      return true;
-    } 
-  
-  });
+  const index = movies.findIndex((movie) => movie.id === id);
 
   movies.splice(index, 1);
 
@@ -130,7 +124,6 @@ const deleteMovie = (event) => {
 const isDisabledButton = () => {
   addMovieButtonNode.disabled = !movieInputNode.value.length
 };
-
 
 movieFormNode.addEventListener('submit', addMovies);
 movieFormNode.addEventListener('input', isDisabledButton);
