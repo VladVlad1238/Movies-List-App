@@ -8,9 +8,9 @@ let movies = [];
 
 
 const renderMovie = (movie) => {
-  function setMovieHTML() {
+  function setMovieList() {
     const cssClass = movie.done ? 'box__container box__container-done' : 'box__container';
-    const setHTML = `<div id="${movie.id}" class="${cssClass}">
+    const setMovieListMarkup = `<div id="${movie.id}" class="${cssClass}">
     <div class="first-col">
        <button class="checked__button" data-action="done">
           <img class="checked__button-img" src="images/unchecked.png" alt="checked button">
@@ -22,13 +22,13 @@ const renderMovie = (movie) => {
             <img class="delete__btn-img" src="images/delete-btn.png" alt="Delete button image">
         </button>
     </div>`
-    return setHTML;
+    return setMovieListMarkup ;
   };
-  movieListNode.insertAdjacentHTML('afterbegin', setMovieHTML());
+  movieListNode.insertAdjacentHTML('afterbegin', setMovieList());
 };
 
 
-const saveLocalStorage = () => {
+const saveToLocalStorage = () => {
   localStorage.setItem('movies', JSON.stringify(movies));
 };
 
@@ -44,29 +44,29 @@ const addMovies = (e) => {
 
   e.preventDefault();
 
-  const movieText = movieInputNode.value.trim();
-  if(!movieText) {
+  const getMovieText = movieInputNode.value.trim();
+  if(!getMovieText) {
     alert('Please, write the movies name')
-    return inputManipulation();
+    return inputDefaultProperties();
   };
 
   const newMovie = {
     id: Date.now(),
-    text: movieText,
+    text: getMovieText,
     done: false,
   };
 
   movies.push(newMovie)
 
-  saveLocalStorage();
+  saveToLocalStorage();
 
   renderMovie(newMovie);
     
-  inputManipulation();
+  inputDefaultProperties();
 };
 
 
-const inputManipulation = () => {
+const inputDefaultProperties = () => {
     movieInputNode.value = "";
     movieInputNode.focus();
     isDisabledButton();
@@ -90,7 +90,7 @@ const doneMovie = (e) => {
 
   parentNode.classList.toggle('box__container-done');
 
-  saveLocalStorage();
+  saveToLocalStorage();
 };
 
 
@@ -107,7 +107,7 @@ const deleteMovie = (e) => {
 
   movies.splice(index, 1);
 
-  saveLocalStorage();
+  saveToLocalStorage();
 
   parentNode.remove();
 };
