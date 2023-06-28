@@ -8,7 +8,6 @@ let movies = [];
 
 
 const renderMovie = (movie) => {
-
   function setMovieHTML() {
     const cssClass = movie.done ? 'box__container box__container-done' : 'box__container';
     const setHTML = `<div id="${movie.id}" class="${cssClass}">
@@ -25,14 +24,7 @@ const renderMovie = (movie) => {
     </div>`
     return setHTML;
   };
-
-  
-const getMovieList = () => {
-  const getMovies = setMovieHTML();
-  movieListNode.insertAdjacentHTML('afterbegin', getMovies);
-  };
-  getMovieList();
-  setMovieHTML();
+  movieListNode.insertAdjacentHTML('afterbegin', setMovieHTML());
 };
 
 
@@ -55,7 +47,7 @@ const addMovies = (e) => {
   const movieText = movieInputNode.value.trim();
   if(!movieText) {
     alert('Please, write the movies name')
-    return;
+    return inputManipulation();
   };
 
   const newMovie = {
@@ -120,7 +112,6 @@ const deleteMovie = (e) => {
   parentNode.remove();
 };
 
-
 const isDisabledButton = () => {
   addMovieButtonNode.disabled = !movieInputNode.value.length
 };
@@ -130,7 +121,3 @@ movieFormNode.addEventListener('input', isDisabledButton);
 movieListNode.addEventListener('click', doneMovie);
 movieListNode.addEventListener('click', deleteMovie);
 
-
-
-
-//убрать пробелы  разобрать код по полкам, посмотреть ревью Игоря 
