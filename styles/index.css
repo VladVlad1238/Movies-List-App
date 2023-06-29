@@ -1,3 +1,8 @@
+@import "../styles/scrollbar.css";
+@import "../styles/button.css";
+@import "../styles/labels.css";
+
+
 body {
   margin: 0 auto;
   width: 100%;
@@ -5,42 +10,11 @@ body {
   font-family: 'Arimo', sans-serif;
   background-color: black;
 }
-
-.movies__list::-webkit-scrollbar {
-  width: 5px;
-}
-
-.movies__list::-webkit-scrollbar-track {
-  background-color: #3a3939;
-  border-radius: 20px;
-}
-
-.movies__list::-webkit-scrollbar-thumb {
-  background-color: darkorchid;
-  border-radius: 20px;
-}
-
 .header__inner {
   margin: 0 auto;
   margin-bottom: 45px;
   padding-top: 80px;
   width: 790px;
-}
-.labels {
-  display: flex;
-  margin-bottom: 20px;
-  gap: 45px;
-}
-.label {
-  padding: 10px 20px;
-  font-size: 15px;
-  line-height: 17px;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
-  color: #F3F6F9;
-  background: #6532F8;
-  border: 1px solid #6532F8;
-  border-radius: 200px;
 }
 .header__title {
   font-size: 120px;
@@ -48,12 +22,6 @@ body {
   letter-spacing: -0.04em;
   color: #F3F6F9;
 }
-
-
-.tasks {
-  padding-top: 263px;
-}
-
 .movies__wrapper {
   margin: 0 auto;
   margin-bottom: 50px;
@@ -86,23 +54,7 @@ body {
   color: #F3F6F9;
   opacity: 0.5;
 }
-
-.add__movies-btn[disabled], .add__movies-btn[disabled]:hover {
-  background-color: gray;
-  border: 1px solid gray;
-}
-.add__movies-btn {
-  border-radius: 50% 20% / 10% 40%;
-  border: 1px solid #6532F8;
-  background-color: #6532F8;
-  cursor: pointer;
-  transition: 0.2s linear;
-}
-.add__movies-btn:hover {
-  border: 1px solid purple;
-  background-color: purple;
-}
-.movies__name {
+.movie__name {
   padding: 10px 20px;
   word-break: break-all;
   font-size: 20px;
@@ -120,7 +72,7 @@ body {
   gap: 3px;
   overflow-y: auto ;
 }
-.box__container {
+.movie__list-container {
   display: flex;
   align-items: center;
   margin-bottom: 5px;
@@ -130,64 +82,15 @@ body {
   background: #3A3939;
   border-radius: 10px;
 }
-.box__container:hover {
+.movie__list-container:hover {
   background-color: darkslategray;
 }
-.first-col {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-.box__input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 19px;
-  height: 18px;
-  margin-left: 20px;
-  background-color: transparent;
-  border: 1px solid #F3F6F9;
-  border-radius: 100px;
-  opacity: 0.3;
-  cursor: pointer;
-}
-.box__input:checked {
-  background-color: darkorchid;
-}
 
-.delete__button {
-  margin-right: 24px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-.delete__button img,
-.checked__button img {
-  pointer-events: none;
-}
-.box__container-done {
+.movie__list-container-done {
   opacity: 0.5;
   text-decoration: line-through;
   color: white;
 }
-.box__container-done .checked__button-img {
+.movie__list-container-done .checked__button-img {
   background-color: darkorchid;
-}
-
-
-
-.checked__button {
-  margin-left: 20px;
-
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-.checked__button-img {
-  border-radius: 50%;
-  border: none;
-  background-color: red;
-}
-.checked__button-img:hover {
-  background-color: yellow;
 }

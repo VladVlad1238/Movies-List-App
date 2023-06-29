@@ -7,52 +7,59 @@ const addMovieButtonNode = document.querySelector('.js-add-movie-btn');
 let movies = [];
 
 
-const renderMovie = (movie) => {
-  function setMovieList() {
-    const cssClass = movie.done ? 'box__container box__container-done' : 'box__container';
-    const setMovieListMarkup = `<div id="${movie.id}" class="${cssClass}">
-    <div class="first-col">
-       <button class="checked__button" data-action="done">
-          <img class="checked__button-img" src="images/unchecked.png" alt="checked button">
-       </button>
-        <p class="movies__name">${movie.text}</p>
-    </div>
-    <div class="second-col">
-        <button class="delete__button" data-action="delete">
-            <img class="delete__btn-img" src="images/delete-btn.png" alt="Delete button image">
-        </button>
-    </div>`
-    return setMovieListMarkup ;
-  };
-  movieListNode.insertAdjacentHTML('afterbegin', setMovieList());
+const renderMovie = (newMovie) => {
+  movieListNode.insertAdjacentHTML('afterbegin', setMovieItem(newMovie));
 };
 
+function setMovieItem(movie) {
+  const cssClass = movie.done ? 'movie__list-container movie__list-container-done' : 'movie__list-container';
+  const setItemMarkup = `<div id="${movie.id}" class="${cssClass}">
+  <div class="checked__button-wrapper">
+     <button class="checked__button" data-action="done">
+        <img class="checked__button-img" src="images/unchecked.png" alt="checked button">
+     </button>
+      <p class="movie__name">${movie.text}</p>
+  </div>
+  <div class="delete__button-wrapper">
+      <button class="delete__button" data-action="delete">
+          <img class="delete__btn-img" src="images/delete-btn.png" alt="Delete button image">
+      </button>
+  </div>`
+  return setItemMarkup;
+};
 
 const saveToLocalStorage = () => {
   localStorage.setItem('movies', JSON.stringify(movies));
 };
 
-if(localStorage.getItem('movies')) {
-  movies = JSON.parse(localStorage.getItem('movies'));
+const getFromLocalStorage = () => {
+  if(localStorage.getItem('movies')) {
+    movies = JSON.parse(localStorage.getItem('movies'));
+  };
+  return movies;
 };
-
-movies.forEach((movie) => {
-  renderMovie(movie);
-});
+getFromLocalStorage();
+  
+const loadMovieStorage = () => {
+  movies.forEach((movie) => {
+    renderMovie(movie);
+  });
+}
+loadMovieStorage();
 
 const addMovies = (e) => {
 
   e.preventDefault();
 
-  const getMovieText = movieInputNode.value.trim();
-  if(!getMovieText) {
+  const getMovieName = movieInputNode.value.trim();
+  if(!getMovieName) {
     alert('Please, write the movies name')
-    return inputDefaultProperties();
+    return resetInput();
   };
 
   const newMovie = {
     id: Date.now(),
-    text: getMovieText,
+    text: getMovieName,
     done: false,
   };
 
@@ -62,44 +69,41 @@ const addMovies = (e) => {
 
   renderMovie(newMovie);
     
-  inputDefaultProperties();
+  resetInput();
 };
 
 
-const inputDefaultProperties = () => {
+const resetInput = () => {
     movieInputNode.value = "";
     movieInputNode.focus();
-    isDisabledButton();
+    isButtonDisabled();
 };
 
-const doneMovie = (e) => {
+const doneMovieHandler = (e) => {
   if(e.target.dataset.action !== 'done'){
     return;
   };
     
-  const parentNode = e.target.closest('.box__container');
+  const parentNode = e.target.closest('.movie__list-container');
  
   const id = Number(parentNode.id);
 
-  const movie = movies.find((movie) => {
-    if(movie.id === id) {
-      return true;
-    }
-  });
+  const movie = movies.find((movie) => movie.id === id);
+
   movie.done = !movie.done;
 
-  parentNode.classList.toggle('box__container-done');
+  parentNode.classList.toggle('movie__list-container-done');
 
   saveToLocalStorage();
 };
 
 
-const deleteMovie = (e) => {
+const deleteMovieHandler = (e) => {
   if(e.target.dataset.action !== 'delete'){
     return;
   };
 
-  const parentNode = e.target.closest('.box__container');
+  const parentNode = e.target.closest('.movie__list-container');
 
   const id = Number(parentNode.id);
 
@@ -112,12 +116,13 @@ const deleteMovie = (e) => {
   parentNode.remove();
 };
 
-const isDisabledButton = () => {
+const isButtonDisabled = () => {
   addMovieButtonNode.disabled = !movieInputNode.value.length
 };
 
+
 movieFormNode.addEventListener('submit', addMovies);
-movieFormNode.addEventListener('input', isDisabledButton);
-movieListNode.addEventListener('click', doneMovie);
-movieListNode.addEventListener('click', deleteMovie);
+movieInputNode.addEventListener('input', isButtonDisabled);
+movieListNode.addEventListener('click', doneMovieHandler);
+movieListNode.addEventListener('click', deleteMovieHandler);
 

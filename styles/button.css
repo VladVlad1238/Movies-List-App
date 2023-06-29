@@ -1,0 +1,48 @@
+.add__movies-btn {
+  border-radius: 50% 20% / 10% 40%;
+  border: 1px solid #6532F8;
+  background-color: #6532F8;
+  cursor: pointer;
+  transition: 0.2s linear;
+}
+.add__movies-btn:hover {
+  border: 1px solid purple;
+  background-color: purple;
+}
+.add__movies-btn[disabled], .add__movies-btn[disabled]:hover {
+  background-color: gray;
+  border: 1px solid gray;
+}
+
+
+.checked__button-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 71px;
+}
+.checked__button {
+  margin-left: 20px;
+
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.checked__button-img {
+  border-radius: 50%;
+  border: none;
+  background-color: red;
+}
+.checked__button-img:hover {
+  background-color: yellow;
+}
+.delete__button {
+  margin-right: 24px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.delete__button img,
+.checked__button img {
+  pointer-events: none;
+}

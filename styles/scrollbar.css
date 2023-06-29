@@ -1,0 +1,13 @@
+.movies__list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.movies__list::-webkit-scrollbar-track {
+  background-color: #3a3939;
+  border-radius: 20px;
+}
+
+.movies__list::-webkit-scrollbar-thumb {
+  background-color: darkorchid;
+  border-radius: 20px;
+}

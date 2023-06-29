@@ -1,0 +1,16 @@
+.labels {
+  display: flex;
+  margin-bottom: 20px;
+  gap: 45px;
+}
+.label {
+  padding: 10px 20px;
+  font-size: 15px;
+  line-height: 17px;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: #F3F6F9;
+  background: #6532F8;
+  border: 1px solid #6532F8;
+  border-radius: 200px;
+}
